@@ -1,100 +1,117 @@
-# 🌦️ Weather ETL Pipeline (PostgreSQL + Python)
+# UrbanPulse: Real-Time Smart City Data Platform
 
-A beginner-friendly **Data Engineering project** that extracts daily weather data from a public API, transforms it with Python, and loads it into a PostgreSQL database.
+## Project Overview
 
----
+UrbanPulse is a full-fledged data engineering project simulating a **real-time smart city data platform**. It ingests, processes, stores, and visualizes data from various urban sources, including traffic sensors, energy meters, and IoT devices. This project demonstrates end-to-end **data engineering skills**: ETL pipelines, streaming data, orchestration, and dashboards.
 
-## 🚀 Project Overview
+## Objectives
 
-This project demonstrates a simple **ETL (Extract, Transform, Load)** pipeline:
-1. **Extract**: Fetch daily weather data from the Open-Meteo API  
-2. **Transform**: Clean and structure the data using Pandas  
-3. **Load**: Store the processed data into a PostgreSQL table for analysis  
+* Build scalable **batch and streaming data pipelines** using Python, PostgreSQL, Kafka, and Airflow.
+* Implement a **data lake** using MinIO for raw, processed, and curated datasets.
+* Demonstrate **real-time data processing** with Kafka producers and consumers.
+* Orchestrate pipelines with **Airflow DAGs**.
+* Create **interactive dashboards** using Metabase or Streamlit.
+* Provide a **polished portfolio-ready project** demonstrating real-world DE skills.
 
-Ideal for learning data pipelines, API handling, and SQL integration.
+## Features
 
----
+* Batch ETL pipelines: Extract, Transform, Load into PostgreSQL.
+* Streaming pipeline: Kafka producer/consumer for real-time ingestion.
+* Data lake layers: raw, processed, curated.
+* Workflow orchestration via Airflow DAGs.
+* Interactive dashboards for smart city metrics.
 
-## 🧰 Tech Stack
+## Tech Stack
 
-| Component | Tool |
-|------------|------|
-| Language | Python 3.x |
-| Data Processing | Pandas |
-| API | Open-Meteo (no API key needed) |
-| Database | PostgreSQL |
-| ORM / DB Connection | SQLAlchemy + psycopg2 |
-| Visualization (optional) | Matplotlib or Plotly |
+| Component        | Technology             | Purpose                       |
+| ---------------- | ---------------------- | ----------------------------- |
+| Programming      | Python 3.11+           | ETL & data pipeline logic     |
+| Database         | PostgreSQL             | Data warehouse                |
+| Object Storage   | MinIO                  | Data lake storage             |
+| Streaming        | Kafka                  | Real-time data ingestion      |
+| Orchestration    | Apache Airflow         | Schedule/manage pipelines     |
+| Dashboard        | Metabase / Streamlit   | Visualization                 |
+| Batch Processing | Pandas / PySpark       | Data transformations          |
+| Containerization | Docker, Docker Compose | Local development environment |
 
----
+## Project Structure
 
-## ⚙️ Setup Instructions
-
-### 1️⃣ Clone the Repository
-```bash
-git clone https://github.com/<your-username>/weather-etl-postgres.git
-cd weather-etl-postgres
+```
+UrbanPulse/
+├─ airflow/                # DAGs, plugins, configs
+│  └─ dags/urbanpulse_etl.py
+├─ kafka/
+│  ├─ producer.py
+│  └─ consumer.py
+├─ etl/
+│  ├─ api_ingest.py
+│  ├─ transform.py
+│  └─ load_postgresql.py
+├─ datalake/
+│  ├─ upload_raw.py
+│  └─ curate_data.py
+├─ warehouse/
+│  └─ schema.sql
+├─ dashboards/
+│  └─ streamlit_app.py
+├─ docker-compose.yml
+├─ requirements.txt
+└─ README.md
 ```
 
-### 2️⃣ Create a Virtual Environment
+## Setup Instructions
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/yourusername/UrbanPulse.git
+cd UrbanPulse
+```
+
+### 2. Python Environment
+
 ```bash
 python -m venv venv
-source venv/bin/activate  # for macOS/Linux
-venv\Scripts\activate     # for Windows
-```
-
-### 3️⃣ Install Dependencies
-```bash
+# Activate venv
+# Windows: venv\Scripts\activate
+# Mac/Linux: source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Configure Database Connection
-```python
-DB_URL = "postgresql+psycopg2://<username>:<password>@localhost:5432/weather_data"
-```
-_(Or use your Neon.tech connection string)_
+### 3. Docker Services
 
-### 5️⃣ Run the ETL Script
 ```bash
-python main.py
+docker compose up -d
 ```
 
-## 🗃️ Database Schema
+This starts PostgreSQL, MinIO, Kafka, Zookeeper, and Metabase.
 
-| Column     | Type      | Description            |
-| ---------- | --------- | ---------------------- |
-| date       | DATE      | Forecast date          |
-| temp_max   | FLOAT     | Max temperature        |
-| temp_min   | FLOAT     | Min temperature        |
-| created_at | TIMESTAMP | Time data was inserted |
+### 4. Run ETL Pipelines
 
-## 📊 Sample Output
-```sql
-SELECT * FROM daily_weather ORDER BY date DESC LIMIT 5;
-```
+* Batch ETL: `python etl/api_ingest.py`
+* Streaming: `python kafka/producer.py` & `python kafka/consumer.py`
+* Airflow DAGs: Access at `http://localhost:8080`
 
-## 🌍 API Reference
+### 5. Dashboard
 
-Open-Meteo API: https://open-meteo.com
+* Metabase: `http://localhost:3000`
+* Streamlit: `streamlit run dashboards/streamlit_app.py`
 
-Example endpoint:
-```bash
-https://api.open-meteo.com/v1/forecast?latitude=14.6&longitude=120.98&daily=temperature_2m_max,temperature_2m_min&timezone=Asia/Manila
-```
-### 🧩 Future Enhancements
+## Learning Outcomes
 
-- Add data visualization dashboard
-- Schedule daily runs using CRON or Airflow
-- Store raw data in AWS S3 (free tier)
+* Hands-on experience with **batch & streaming pipelines**.
+* Practical knowledge of **workflow orchestration** with Airflow.
+* Building a **data lake architecture**.
+* Developing **interactive dashboards**.
+* Portfolio-ready demonstration of **real-world DE skills**.
 
-## 🧑‍💻 Author
+## Future Enhancements
 
-Jay — Software Developer & Aspiring Data Engineer 🚀
+* Deploy pipelines on **AWS/GCP**.
+* Integrate **Spark** for large-scale data.
+* Implement **data quality validation** (Great Expectations).
+* Add **monitoring & alerting** (Prometheus/Grafana).
 
-## 🪴 License
+## License
 
-This project is open-source under the MIT License
-```yaml
-Would you like me to help generate a `requirements.txt` and starter code (`main.py` + `config.py`) next so you can push the first commit right after creating the repo?
-
-```
+MIT License
