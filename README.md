@@ -64,7 +64,7 @@ UrbanPulse/
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/UrbanPulse.git
+git clone https://github.com/BorjaJayson/UrbanPulse-Real-Time-Smart-City-Data-Platform.git
 cd UrbanPulse
 ```
 
